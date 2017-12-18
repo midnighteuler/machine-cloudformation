@@ -192,7 +192,11 @@ func (d *Driver) Create() error {
 
 	svc := cloudformation.New(session.New())
 
+	capabs := []*string{}
+	capabs = append(capabs, aws.String("CAPABILITY_IAM"))
+
 	params := &cloudformation.CreateStackInput{
+		Capabilities: capabs,
 		StackName:   aws.String(d.MachineName),
 		TemplateURL: aws.String(d.CloudFormationURL),
 		Parameters:  d.createParams(),
